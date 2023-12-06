@@ -2,7 +2,7 @@
 
 buildNpmPackage rec {
   pname = "eslint_d";
-  version = "13.0.0";
+  version = "13.1.1";
 
   src = fetchFromGitHub {
     owner = "mantoni";
