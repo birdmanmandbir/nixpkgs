@@ -49,6 +49,7 @@ super: lib.trivial.pipe super [
     nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
     buildInputs = [ vte ];
     postFixup = ''
+      substituteInPlace "$out/share/gnome-shell/extensions/ddterm@amezin.github.com/bin/com.github.amezin.ddterm" --replace "gjs" "${gjs}/bin/gjs"
       wrapGApp "$out/share/gnome-shell/extensions/ddterm@amezin.github.com/bin/com.github.amezin.ddterm"
     '';
   }))
@@ -116,6 +117,16 @@ super: lib.trivial.pipe super [
         inherit gsound libgda;
       })
     ];
+  }))
+
+  (patchExtension "system-monitor-next@paradoxxx.zero.gmail.com" (old: {
+    patches = [
+      (substituteAll {
+        src = ./extensionOverridesPatches/system-monitor-next_at_paradoxxx.zero.gmail.com.patch;
+        gtop_path = "${libgtop}/lib/girepository-1.0";
+      })
+    ];
+    meta.maintainers = with lib.maintainers; [ andersk ];
   }))
 
   (patchExtension "tophat@fflewddur.github.io" (old: {

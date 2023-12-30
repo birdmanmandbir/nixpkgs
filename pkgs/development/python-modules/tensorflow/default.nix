@@ -104,6 +104,7 @@ let
   tfFeature = x: if x then "1" else "0";
 
   version = "2.13.0";
+  format = "setuptools";
   variant = lib.optionalString cudaSupport "-gpu";
   pname = "tensorflow${variant}";
 
@@ -479,6 +480,7 @@ let
     };
 
     meta = with lib; {
+      badPlatforms = lib.optionals cudaSupport lib.platforms.darwin;
       changelog = "https://github.com/tensorflow/tensorflow/releases/tag/v${version}";
       description = "Computation using data flow graphs for scalable machine learning";
       homepage = "http://tensorflow.org";
